@@ -7,7 +7,7 @@ const Tempapp = () => {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const url = `http://api.openweathermap.org/data/2.5/weather?q=${search}&appid=9dde22fd44814dfe9ac91378ac5d8d6a`;
+      const url = `http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9dde22fd44814dfe9ac91378ac5d8d6a`;
       const response = await fetch(url);
 
       const resJson = await response.json();
@@ -24,6 +24,7 @@ const Tempapp = () => {
         <div className="inputData">
           <input
             type="search"
+            value={search}
             className="inputFeild" /*defaultValue="Sifal"*/
             onChange={(event) => {
               setSearch(event.target.value);
@@ -32,7 +33,7 @@ const Tempapp = () => {
         </div>
 
         {!city ? (
-          <p>No Data Found</p>
+          <p className="errorMsg">No Data Found</p>
         ) : (
           <div>
             <div className="info">
@@ -40,8 +41,10 @@ const Tempapp = () => {
                 <i className="fas fa-street-view"></i>
                 {search}
               </h2>
-              <h1 className="temp">{city.main.temp}</h1>
-              <h3 className="tempmin_max">Min : 5.25*Cel | Max : 5.25*Cel </h3>
+              <h1 className="temp">{city.temp}°Cel</h1>
+              <h3 className="tempmin_max">
+                Min : {city.temp_min}°Cel | Max : {city.temp_max}°Cel{" "}
+              </h3>
             </div>
 
             <div className="wave -one"></div>
